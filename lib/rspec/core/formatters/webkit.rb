@@ -181,8 +181,8 @@ class RSpec::Core::Formatters::WebKit < RSpec::Core::Formatters::BaseTextFormatt
 	def backtrace_line( line )
 		return nil unless line = super
 		return nil if line =~ BACKTRACE_EXCLUDE_PATTERN
-		return nil unless $1 and $2 # Prevent errors trying to convert these to strings
 		return h( line.strip ).gsub( /([^:]*\.rb):(\d*)/ ) do
+			return '<em>Could not detect file.</em>' unless $1 and $2
 			"<a href=\"txmt://open?url=file://#{File.expand_path($1)}&amp;line=#{$2}\">#{$1}:#{$2}</a> "
 		end
 	end
